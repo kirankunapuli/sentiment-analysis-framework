@@ -1,0 +1,206 @@
+<head>
+
+    <!-- <script src = "angular.min.js"> </script> -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.3.0/material.blue_grey-red.min.css" />
+    <script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
+    <link rel="import" href="https://www.polymer-project.org/0.5/components/paper-ripple/paper-ripple.html">
+    <link rel="import" href="http://www.polymer-project.org/components/core-icons/core-icons.html">
+    <link rel="import" href="http://www.polymer-project.org/components/font-roboto/roboto.html">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+    <!--<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">-->
+
+    <title>NLP</title>
+    <link rel="shortcut icon" type="image/png" href="https://financialit.net/sites/default/files/dbs-bank.png" />
+
+    <style type="text/css">
+        body {
+        			background-color: silver
+        		}
+
+        		h1,
+				h2,
+        		h3,
+        		p,
+        		a,
+        		footer {
+        			font-family: Verdana, Geneva, sans-serif;
+        			text-align: center
+        		}
+
+        		h1 {
+        			font-size: 56px;
+        			line-height: 1.35;
+        			letter-spacing: -.02em;
+        			margin: 24px 0;
+        			color: rgb(255,82,82);
+        		}
+
+				h2 {
+					color: rgb(255,82,82);
+				}
+
+        		iframe {
+        			margin-left: auto;
+        			margin-right: auto;
+        			display: block;
+        			border: 0;
+        			vertical-align: middle;
+        			position: relative;
+        			-webkit-box-sizing: border-box;
+        			-moz-box-sizing: border-box;
+        			box-sizing: border-box;
+        		}
+
+        		a {
+        			color: rgb(255,82,82);
+        			font-weight: 500;
+        		}
+
+        		a:link {
+        			text-decoration: none;
+        		}
+
+        		button {
+        			display: inline-block;
+        			position: relative;
+        			line-height: 32px;
+        			border-radius: 2px;
+        			background-color: #fff;
+        		}
+
+        		button.raised {
+        			transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        			transition-delay: 0.2s;
+        			box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+        		}
+
+        		button.raised:active {
+        			box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+        			transition-delay: 0s;
+        		}
+
+        		md-button {
+        			margin: 6px 8px 6px 8px;
+        			padding: 6px 6px 6px 6px;
+        			font-size: 14px;
+        			text-align: center;
+        			text-transform: uppercase;
+        			text-decoration: none;
+        			border: none;
+        			outline: none;
+        			background-color: #fff;
+        			box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.26);
+        		}
+
+        		input {
+        			  font-size:14px;
+        			  padding:10px 10px 10px 5px;
+        			  /*display:block;*/
+        			  width:300px;
+        			  border:none;
+        			  border-bottom:1px solid #757575;
+        			}
+
+        		form {
+        			text-align: center;
+        		}
+
+        		table,
+        		th,
+        		td {
+        			border: 0.5px solid grey;
+        			border-collapse: collapse;
+        			padding: 12px;
+        			text-align: center;
+        			position: relative;
+        		}
+
+        		table {
+        			width: 100%;
+        		}
+
+        		table td:nth-child(odd) {
+        			background-color: #f2f2f2;
+        		}
+
+        		table td:nth-child(even) {
+        			background-color: #f1f1f1;
+        		}
+
+        		table td:hover {
+        			background-color: #ddd;
+        		}
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Image and text -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">
+    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/18/DBS_Bank_Logo.svg/320px-DBS_Bank_Logo.svg.png" width="80" height="33" class="d-inline-block align-top" alt="DBS Logo">
+  </a>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a target="_blank" class="nav-link" href="https://gitlab.dev.apps.cs.sgp.dbs.com/kirankunapuli/sentiment-analysis-framework">Sentiment Analysis - Gitlab</a>
+                </li>
+                <li class="nav-item">
+                    <a target="_blank" class="nav-link" href="https://gitlab.dev.apps.cs.sgp.dbs.com/aditya1/Document_Classification">Document Classification - Gitlab</a>
+                </li>
+            </ul>
+        </div>
+
+
+    </nav>
+
+    <div>
+        <A HREF="javascript:history.go(0)">
+            <h1>NLP Pipeline</h1>
+        </A>
+
+    </div>
+
+    <div class="container">
+        <div class="row center">
+            <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+                <tr>
+                    <td class="mdl-data-table__cell--non-numeric">
+                        <h2 align="center">Train</h2>
+                        <form>
+                            <input type="file" accept=".tsv, .csv" required/>
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+						  Submit
+						</button>
+                        </form>
+                    </td>
+                    <td class="mdl-data-table__cell--non-numeric">
+                        <h2 align="center">Test</h2>
+                        <form>
+                            <input type="file" accept=".tsv, .csv" required/>
+                            <!--<input type="submit" required>-->
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+						  Submit
+						</button>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+
+    <br>
+
+    <footer>
+        <p>Developed by: <a href="http://kirankunapuli.github.io/">Kiran Kunapuli</a><br>Version V0.5 Beta</p>
+    </footer>
+</body>
