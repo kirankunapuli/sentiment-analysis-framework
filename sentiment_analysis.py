@@ -52,14 +52,16 @@ import scikitplot as skplt
 #plt.show()
 
 def plot_classifications():
-    from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
+    from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier, GradientBoostingClassifier
     from sklearn.linear_model import LogisticRegression
     from sklearn.naive_bayes import GaussianNB
     from sklearn.svm import LinearSVC
     from sklearn.neural_network import MLPClassifier
+    from sklearn.metrics import roc_auc_score
 
     rf = RandomForestClassifier()
     ada = AdaBoostClassifier()
+    gb = GradientBoostingClassifier()
     lr = LogisticRegression()
     nb = GaussianNB()
     svm = LinearSVC()
@@ -67,14 +69,15 @@ def plot_classifications():
 
     rf_probas = rf.fit(X_train, y_train).predict_proba(X_test)
     ada_probas = ada.fit(X_train, y_train).predict_proba(X_test)
+    gb_probas = gb.fit(X_train, y_train).predict_proba(X_test)
     lr_probas = lr.fit(X_train, y_train).predict_proba(X_test)
     nb_probas = nb.fit(X_train, y_train).predict_proba(X_test)
     svm_scores = svm.fit(X_train, y_train).decision_function(X_test)
     mlp_probas = nb.fit(X_train, y_train).predict_proba(X_test)
 
-    probas_list = [rf_probas, ada_probas, lr_probas, nb_probas, svm_scores, mlp_probas]
+    probas_list = [rf_probas, ada_probas, gb_probas, lr_probas, nb_probas, svm_scores, mlp_probas]
 
-    clf_names = ['Random Forest', 'Ada Boost', 'Logistic Regression',
+    clf_names = ['Random Forest', 'Ada Boost', 'Gradient Boosting', 'Logistic Regression',
                  'Gaussian Naive Bayes', 'Support Vector Machine', 'Neural Network']
 
     import scikitplot as skplt
@@ -86,6 +89,8 @@ def plot_classifications():
     
     # Plotting classification reports
     print('\n')
+    print("Random Forest ROC-AUC score: %.3f" % roc_auc_score(y_test, rf_probas[:, 1]))
+    print('\n')
     print('Classification report for Random Forest\n',
           classification_report(y_test, rf.fit(X_train, y_train).predict(X_test)))
     skplt.metrics.plot_confusion_matrix(y_test, rf.fit(X_train, y_train).predict(X_test), normalize=False,
@@ -93,12 +98,25 @@ def plot_classifications():
     plt.show()
 
     print('\n')
+    print("AdaBoost ROC-AUC score: %.3f" % roc_auc_score(y_test, ada_probas[:, 1]))
+    print('\n')
     print('Classification report for AdaBoost\n',
-          classification_report(y_test, mlp.fit(X_train, y_train).predict(X_test)))
+          classification_report(y_test, ada.fit(X_train, y_train).predict(X_test)))
     skplt.metrics.plot_confusion_matrix(y_test, ada.fit(X_train, y_train).predict(X_test), normalize=False,
                                         title='AdaBoost')
     plt.show()
 
+    print('\n')
+    print("Gradient Boosting Classifier ROC-AUC score: %.3f" % roc_auc_score(y_test, ada_probas[:, 1]))
+    print('\n')
+    print('Classification report for Gradient Boosting Classifier\n',
+          classification_report(y_test, gb.fit(X_train, y_train).predict(X_test)))
+    skplt.metrics.plot_confusion_matrix(y_test, gb.fit(X_train, y_train).predict(X_test), normalize=False,
+                                        title='Gradient Boosting')
+    plt.show()
+
+    print('\n')
+    print("Logistic Regression ROC-AUC score: %.3f" % roc_auc_score(y_test, lr_probas[:, 1]))
     print('\n')
     print('Classification report for Logistic Regression\n',
           classification_report(y_test, lr.fit(X_train, y_train).predict(X_test)))
@@ -107,19 +125,25 @@ def plot_classifications():
     plt.show()
 
     print('\n')
+    print("Naive Bayes ROC-AUC score: %.3f" % roc_auc_score(y_test, nb_probas[:, 1]))
+    print('\n')
     print('Classification report for Naive Bayes\n',
           classification_report(y_test, nb.fit(X_train, y_train).predict(X_test)))
-    skplt.metrics.plot_confusion_matrix(y_test, lr.fit(X_train, y_train).predict(X_test), normalize=False,
+    skplt.metrics.plot_confusion_matrix(y_test, nb.fit(X_train, y_train).predict(X_test), normalize=False,
                                         title='Naive Bayes')
     plt.show()
 
     print('\n')
+    # print("SVClassifier ROC-AUC score: %.3f" % roc_auc_score(y_test, svm_scores[:, 1]))
+    # print('\n')
     print('Classification report for SVClassifier\n',
-          classification_report(y_test, nb.fit(X_train, y_train).predict(X_test)))
+          classification_report(y_test, svm.fit(X_train, y_train).predict(X_test)))
     skplt.metrics.plot_confusion_matrix(y_test, svm.fit(X_train, y_train).predict(X_test), normalize=False,
                                         title='SVClassifier')
     plt.show()
 
+    print('\n')
+    print("Neural Network ROC-AUC score: %.3f" % roc_auc_score(y_test, mlp_probas[:, 1]))
     print('\n')
     print('Classification report for Neural Network\n',
           classification_report(y_test, mlp.fit(X_train, y_train).predict(X_test)))
